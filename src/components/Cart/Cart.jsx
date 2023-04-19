@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Cart.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { AuthContext } from '../Providers/AuthProvider';
 
 const Cart = ({ cart, handleClearCart, children }) => {
     // const cart = props.cart; // option 1
     // const {cart} = props; // option 2
 
     // console.log(cart);
+    const { user } = useContext(AuthContext)
 
     let totalPrice = 0;
     let totalShipping = 0;
@@ -29,6 +31,9 @@ const Cart = ({ cart, handleClearCart, children }) => {
     return (
         <div className='cart'>
             <h4>Order Summary</h4>
+            {
+                user && <h5>{user.email}</h5>
+            }
             <p>Selected Items: {quantity}</p>
             <p>Total Price: ${totalPrice}</p>
             <p>Shipping: ${totalShipping}</p>
